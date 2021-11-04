@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './Components/Header';
 import Search from './Components/Search';
 import Table from './Components/Table';
@@ -16,14 +16,14 @@ const App = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const dataFromServer = await fetchTasks();
+      const dataFromServer = await fetchData();
       setData(dataFromServer);
     };
 
     getData();
   }, []);
 
-  const fetchTasks = async () => {
+  const fetchData = async () => {
     const res = await fetch(
       API +
         new URLSearchParams({
@@ -70,26 +70,19 @@ const App = () => {
     <Router>
       <div>
         <Header />
-        <Route
-          path='/'
-          exact
-          render={() => (
-            <>
-              <Search
-                symbol={symbol}
-                interval={interval}
-                limit={limit}
-                decimal={decimal}
-                setSymbol={onChangeSymbol}
-                setInterval={onChangeInterval}
-                setLimit={onChangeLimit}
-                setDecimal={onChangeDecimal}
-                onSearch={onSearch}
-              />
-              <Table data={data} decimal={decimal} />
-            </>
-          )}
+        <Search
+          symbol={symbol}
+          interval={interval}
+          limit={limit}
+          decimal={decimal}
+          setSymbol={onChangeSymbol}
+          setInterval={onChangeInterval}
+          setLimit={onChangeLimit}
+          setDecimal={onChangeDecimal}
+          onSearch={onSearch}
         />
+        <Table data={data} decimal={decimal} />
+
         <Footer />
       </div>
     </Router>

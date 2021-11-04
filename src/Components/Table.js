@@ -5,30 +5,63 @@ import { useState } from 'react';
 const Table = ({ data, decimal }) => {
   const converter = (num) => parseFloat(num).toFixed(decimal);
 
-  const [checked, setChecked] = useState(true);
+  const [average, setAverage] = useState(true);
+  const [time, setTime] = useState(false);
+  const [trades, setTrades] = useState(false);
 
   const avg = (x) =>
     data.reduce((r, c) => r + parseFloat(c[x]), 0) / data.length;
 
   return (
     <div className='container'>
-      <div className='form-check'>
-        <input
-          className='form-check-input'
-          type='checkbox'
-          value=''
-          id='flexCheckChecked'
-          onChange={() => setChecked(!checked)}
-          checked={checked}
-        />
-        <label className='form-check-label' htmlFor='flexCheckChecked'>
-          Show Average
-        </label>
+      <div className='me-auto'>
+        <div className='form-check form-check-inline form-switch'>
+          <input
+            className='form-check-input'
+            type='checkbox'
+            value=''
+            id='average'
+            onChange={() => setAverage(!average)}
+            checked={average}
+          />
+          <label className='form-check-label' htmlFor='average'>
+            Show Average
+          </label>
+        </div>
+
+        <div className='form-check form-check-inline form-switch'>
+          <input
+            className='form-check-input'
+            type='checkbox'
+            value=''
+            id='time'
+            onChange={() => setTime(!time)}
+            checked={time}
+          />
+          <label className='form-check-label' htmlFor='time'>
+            Show Time
+          </label>
+        </div>
+
+        <div className='form-check form-check-inline form-switch'>
+          <input
+            className='form-check-input'
+            type='checkbox'
+            value=''
+            id='trades'
+            onChange={() => setTrades(!trades)}
+            checked={trades}
+          />
+          <label className='form-check-label' htmlFor='trades'>
+            Show Trades
+          </label>
+        </div>
       </div>
+
       <table className='table table-bordered table-sm'>
         <thead>
-          <tr className='text-center'>
-            <th scope='col'>Open Time</th>
+          <tr className='text-center table-primary'>
+            {time && <th scope='col'>Open Time</th>}
             <th scope='col'>Open</th>
             <th scope='col'>High</th>
             <th scope='col'>%</th>
@@ -36,12 +69,13 @@ const Table = ({ data, decimal }) => {
             <th scope='col'>%</th>
             <th scope='col'>Close</th>
             <th scope='col'>Average</th>
-            <th scope='col'>Close Time</th>
-            <th scope='col'>Number of trades</th>
+            {time && <th scope='col'>Close Time</th>}
+
+            {trades && <th scope='col'>Number of trades</th>}
           </tr>
-          {checked && (
+          {average && (
             <tr className='text-end table-warning'>
-              <th scope='col'></th>
+              {time && <th scope='col'></th>}
               <th scope='col'>{converter(avg(1))}</th>
               <th scope='col'>{converter(avg(2))}</th>
               <th scope='col' className='text-center'>
@@ -53,8 +87,8 @@ const Table = ({ data, decimal }) => {
               </th>
               <th scope='col'>{converter(avg(4))}</th>
               <th scope='col'>{converter((avg(4) + avg(1)) / 2)}</th>
-              <th scope='col'></th>
-              <th scope='col'></th>
+              {time && <th scope='col'></th>}
+              {trades && <th scope='col'></th>}
             </tr>
           )}
         </thead>
@@ -68,10 +102,11 @@ const Table = ({ data, decimal }) => {
 
             return (
               <tr key={i}>
-                <td className='text-center'>
-                  {moment(data[0]).format('MM/DD, h:mm A')}
-                  {/* {data[0]} */}
-                </td>
+                {time && (
+                  <td className='text-center'>
+                    {moment(data[0]).format('MM/DD, h:mm A')}
+                  </td>
+                )}
                 <td className='text-end'>{converter(data[1])}</td>
                 <td className='text-end'>{converter(data[2])}</td>
                 <td className='text-center'>{converter(high)}</td>
@@ -79,10 +114,14 @@ const Table = ({ data, decimal }) => {
                 <td className='text-center'>{converter(low)}</td>
                 <td className='text-end'>{converter(data[4])}</td>
                 <td className={`text-end ${classes}`}>{converter(ave / 2)}</td>
-                <td className='text-center'>
-                  {moment(data[6]).format('MM/DD, h:mm A')}
-                </td>
-                <td className='text-center'>{data[8].toLocaleString()}</td>
+                {time && (
+                  <td className='text-center'>
+                    {moment(data[6]).format('MM/DD, h:mm A')}
+                  </td>
+                )}
+                {trades && (
+                  <td className='text-center'>{data[8].toLocaleString()}</td>
+                )}
               </tr>
             );
           })}

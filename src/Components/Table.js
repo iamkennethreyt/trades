@@ -1,8 +1,8 @@
 import moment from 'moment';
 import React from 'react';
 
-const Table = ({ data }) => {
-  const converter = (num) => parseFloat(num).toFixed(2);
+const Table = ({ data, decimal }) => {
+  const converter = (num) => parseFloat(num).toFixed(decimal);
   return (
     <div className='container'>
       <table className='table table-bordered table-sm'>

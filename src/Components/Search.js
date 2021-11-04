@@ -7,13 +7,18 @@ const Search = ({
   symbol,
   limit,
   interval,
-  decimal,
   setSymbol,
   setLimit,
+  decimal,
   setInterval,
-  setDecimal
+  setDecimal,
+  onSearch
 }) => {
-  const onSubmit = (e) => e.preventDefault();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onSearch();
+  };
+
   return (
     <div className='container'>
       <form className='row g-3 my-3' onSubmit={onSubmit}>
@@ -21,7 +26,6 @@ const Search = ({
           <select
             className='form-select'
             id='symbols'
-            aria-label='Floating label select example'
             readOnly
             onChange={(e) => setSymbol(e.target.value)}
             defaultValue={symbol}
@@ -40,7 +44,6 @@ const Search = ({
             readOnly
             className='form-select'
             id='intervals'
-            aria-label='Floating label select example'
             onChange={(e) => setInterval(e.target.value)}
             defaultValue={interval}
           >
@@ -73,6 +76,11 @@ const Search = ({
             defaultValue={decimal}
           />
           <label htmlFor='decimal'>Decimal</label>
+        </div>
+        <div className='col-auto'>
+          <button type='submit' className='btn btn-primary py-3'>
+            Search
+          </button>
         </div>
       </form>
     </div>

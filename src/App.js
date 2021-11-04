@@ -8,11 +8,11 @@ import Footer from './Components/Footer';
 const API = 'https://api3.binance.com/api/v3/klines?';
 
 const App = () => {
-  const [data, setData] = useState([]);
   const [symbol, setSymbol] = useState('BNBBUSD');
   const [limit, setLimit] = useState(20);
   const [interval, setInterval] = useState('1h');
   const [decimal, setDecimal] = useState(2);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -21,27 +21,7 @@ const App = () => {
     };
 
     getData();
-  });
-
-  const onChangeDecimal = async (e) => {
-    setDecimal(e);
-    await onSearch();
-  };
-
-  const onChangeInterval = (e) => {
-    setInterval(e);
-    onSearch();
-  };
-
-  const onChangeSymbol = (e) => {
-    setSymbol(e);
-    onSearch();
-  };
-
-  const onChangeLimit = async (e) => {
-    setLimit(e);
-    await onSearch();
-  };
+  }, []);
 
   const fetchTasks = async () => {
     const res = await fetch(
@@ -66,11 +46,24 @@ const App = () => {
           interval,
           limit
         })
-      // { mode: 'no-cors' }
     );
 
     const fetchedData = await res.json();
     setData(fetchedData.reverse());
+  };
+
+  const onChangeSymbol = (e) => {
+    setSymbol(e);
+  };
+  const onChangeInterval = (e) => {
+    setInterval(e);
+  };
+  const onChangeLimit = (e) => {
+    setLimit(e);
+  };
+
+  const onChangeDecimal = (e) => {
+    setDecimal(e);
   };
 
   return (
@@ -83,25 +76,20 @@ const App = () => {
           render={() => (
             <>
               <Search
-                decimal={decimal}
-                interval={interval}
                 symbol={symbol}
+                interval={interval}
                 limit={limit}
-                setInterval={onChangeInterval}
+                decimal={decimal}
                 setSymbol={onChangeSymbol}
+                setInterval={onChangeInterval}
                 setLimit={onChangeLimit}
                 setDecimal={onChangeDecimal}
+                onSearch={onSearch}
               />
               <Table data={data} decimal={decimal} />
             </>
           )}
         />
-        {/* <Route
-          path='/settings'
-          render={() => (
-            <Settings decimal={decimal} onChangeDecimal={onChangeDecimal} />
-          )}
-        /> */}
         <Footer />
       </div>
     </Router>

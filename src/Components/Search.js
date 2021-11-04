@@ -1,111 +1,82 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Header from './Components/Header';
-import Search from './Components/Search';
-import Table from './Components/Table';
-import { useState, useEffect } from 'react';
-import Footer from './Components/Footer';
+import React from 'react';
 
-const API = 'https://api3.binance.com/api/v3/klines?';
+import intervals from '../data/interval';
+import symbols from '../data/symbol';
 
-const App = () => {
-  const [data, setData] = useState([]);
-  const [symbol, setSymbol] = useState('BNBBUSD');
-  const [limit, setLimit] = useState(20);
-  const [interval, setInterval] = useState('1h');
-  const [decimal, setDecimal] = useState(2);
-
-  useEffect(() => {
-    const getData = async () => {
-      const dataFromServer = await fetchTasks();
-      setData(dataFromServer);
-    };
-
-    getData();
-  });
-
-  const onChangeDecimal = async (e) => {
-    setDecimal(e);
-    await onSearch();
-  };
-
-  const onChangeInterval = (e) => {
-    setInterval(e);
-    onSearch();
-  };
-
-  const onChangeSymbol = (e) => {
-    setSymbol(e);
-    onSearch();
-  };
-
-  const onChangeLimit = async (e) => {
-    setLimit(e);
-    await onSearch();
-  };
-
-  const fetchTasks = async () => {
-    const res = await fetch(
-      API +
-        new URLSearchParams({
-          symbol,
-          interval,
-          limit
-        })
-      // { mode: 'no-cors' }
-    );
-
-    const fetchedData = await res.json();
-    return fetchedData.reverse();
-  };
-
-  const onSearch = async () => {
-    const res = await fetch(
-      API +
-        new URLSearchParams({
-          symbol,
-          interval,
-          limit
-        })
-      // { mode: 'no-cors' }
-    );
-
-    const fetchedData = await res.json();
-    setData(fetchedData.reverse());
-  };
-
+const Search = ({
+  symbol,
+  limit,
+  interval,
+  decimal,
+  setSymbol,
+  setLimit,
+  setInterval,
+  setDecimal
+}) => {
+  const onSubmit = (e) => e.preventDefault();
   return (
-    <Router>
-      <div>
-        <Header />
-        <Route
-          path='/'
-          exact
-          render={() => (
-            <>
-              <Search
-                decimal={decimal}
-                interval={interval}
-                symbol={symbol}
-                limit={limit}
-                setInterval={onChangeInterval}
-                setSymbol={onChangeSymbol}
-                setLimit={onChangeLimit}
-                setDecimal={onChangeDecimal}
-              />
-              <Table data={data} decimal={decimal} />
-            </>
-          )}
-        />
-        {/* <Route
-          path='/settings'
-          render={() => (
-            <Settings decimal={decimal} onChangeDecimal={onChangeDecimal} />
-          )}
-        /> */}
-        <Footer />
-      </div>
-    </Router>
+    <div className='container'>
+      <form className='row g-3 my-3' onSubmit={onSubmit}>
+        <div className='col-auto form-floating'>
+          <select
+            className='form-select'
+            id='symbols'
+            aria-label='Floating label select example'
+            readOnly
+            onChange={(e) => setSymbol(e.target.value)}
+            defaultValue={symbol}
+          >
+            {symbols.map((s, i) => (
+              <option key={i} value={s.value}>
+                {s.label}
+              </option>
+            ))}
+          </select>
+          <label htmlFor='symbols'>Select Symbols</label>
+        </div>
+
+        <div className='col-auto form-floating'>
+          <select
+            readOnly
+            className='form-select'
+            id='intervals'
+            aria-label='Floating label select example'
+            onChange={(e) => setInterval(e.target.value)}
+            defaultValue={interval}
+          >
+            {intervals.map((n, i) => (
+              <option key={i} value={n.value}>
+                {n.label}
+              </option>
+            ))}
+          </select>
+          <label htmlFor='intervals'>Select Intervals</label>
+        </div>
+
+        <div className='col-auto form-floating'>
+          <input
+            type='number'
+            className='form-control'
+            id='limit'
+            onChange={(e) => setLimit(e.target.value)}
+            defaultValue={limit}
+          />
+          <label htmlFor='limit'>Limit</label>
+        </div>
+
+        <div className='col-auto form-floating'>
+          <input
+            type='number'
+            className='form-control'
+            id='decimal'
+            onChange={(e) => setDecimal(e.target.value)}
+            defaultValue={decimal}
+          />
+          <label htmlFor='decimal'>Decimal</label>
+        </div>
+      </form>
+    </div>
   );
 };
 
-export default App;
+export default Search;

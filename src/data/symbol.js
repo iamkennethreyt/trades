@@ -56,6 +56,10 @@ const symbols = [
   {
     value: 'BCHBUSD',
     label: 'BCH/BUSD'
+  },
+  {
+    value: 'SHIBBUSD',
+    label: 'SHIB/BUSD'
   }
 ];
 

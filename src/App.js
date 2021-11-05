@@ -1,9 +1,10 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './Components/Header';
 import Search from './Components/Search';
 import Table from './Components/Table';
 import { useState, useEffect } from 'react';
 import Footer from './Components/Footer';
+import Calculator from './Components/Calculator';
 
 const API = 'https://api3.binance.com/api/v3/klines?';
 
@@ -31,7 +32,6 @@ const App = () => {
           interval,
           limit
         })
-      // { mode: 'no-cors' }
     );
 
     const fetchedData = await res.json();
@@ -68,23 +68,30 @@ const App = () => {
 
   return (
     <Router>
-      <div>
-        <Header />
-        <Search
-          symbol={symbol}
-          interval={interval}
-          limit={limit}
-          decimal={decimal}
-          setSymbol={onChangeSymbol}
-          setInterval={onChangeInterval}
-          setLimit={onChangeLimit}
-          setDecimal={onChangeDecimal}
-          onSearch={onSearch}
-        />
-        <Table data={data} decimal={decimal} />
+      <Header />
+      <Route
+        path='/'
+        exact
+        render={(props) => (
+          <>
+            <Search
+              symbol={symbol}
+              interval={interval}
+              limit={limit}
+              decimal={decimal}
+              setSymbol={onChangeSymbol}
+              setInterval={onChangeInterval}
+              setLimit={onChangeLimit}
+              setDecimal={onChangeDecimal}
+              onSearch={onSearch}
+            />
+            <Table data={data} decimal={decimal} />
+          </>
+        )}
+      />
 
-        <Footer />
-      </div>
+      <Route path='/calculator' component={Calculator} />
+      <Footer />
     </Router>
   );
 };

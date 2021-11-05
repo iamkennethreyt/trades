@@ -4,32 +4,58 @@ const symbols = [
     label: 'BNB/BUSD'
   },
   {
-    value: 'DOGEBUSD',
-    label: 'DOGE/BUSD'
+    value: 'BTCBUSD',
+    label: 'BTC/BUSD'
   },
   {
     value: 'ETHBUSD',
     label: 'ETH/BUSD'
   },
   {
-    value: 'BTCUSDT',
-    label: 'BTC/USDT'
+    value: 'BUSDUSDT',
+    label: 'USDT/BUSD'
+  },
+
+  {
+    value: 'ADABUSD',
+    label: 'ADA/BUSD'
   },
   {
-    value: 'BNBUSDT',
-    label: 'BNB/USDT'
+    value: 'DOTBUSD',
+    label: 'DOT/BUSD'
   },
   {
-    value: 'DOGEUSDT',
-    label: 'DOGE/USDT'
+    value: 'DOGEBUSD',
+    label: 'DOGE/BUSD'
   },
   {
-    value: 'ETHUSDT',
-    label: 'ETH/USDT'
+    value: 'USDCBUSD',
+    label: 'USDC/BUSD'
   },
   {
-    value: 'BTCUSDT',
-    label: 'BTC/USDT'
+    value: 'AVAXBUSD',
+    label: 'AVAX/BUSD'
+  },
+  {
+    value: 'UNIBUSD',
+    label: 'UNI/BUSD'
+  },
+
+  {
+    value: 'LINKBUSD',
+    label: 'LINK/BUSD'
+  },
+  {
+    value: 'LTCBUSD',
+    label: 'LTC/BUSD'
+  },
+  {
+    value: 'MATICBUSD',
+    label: 'MATIC/BUSD'
+  },
+  {
+    value: 'BCHBUSD',
+    label: 'BCH/BUSD'
   }
 ];
 

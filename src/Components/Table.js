@@ -102,7 +102,7 @@ const Table = ({ data, decimal }) => {
             const high = (data[2] / data[1]) * 100 - 100;
             const low = 100 - (100 * data[3]) / data[1];
             const classes =
-              data[1] > data[4] ? 'table-success' : 'table-danger';
+              data[1] < data[4] ? 'table-success' : 'table-danger';
 
             return (
               <tr key={i}>

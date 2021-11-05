@@ -88,7 +88,11 @@ const Table = ({ data, decimal }) => {
               <th scope='col'>{converter(avg(4))}</th>
               <th scope='col'>{converter((avg(4) + avg(1)) / 2)}</th>
               {time && <th scope='col'></th>}
-              {trades && <th scope='col'></th>}
+              {trades && (
+                <th scope='col' className='text-center'>
+                  {Math.round(avg(8)).toLocaleString()}
+                </th>
+              )}
             </tr>
           )}
         </thead>

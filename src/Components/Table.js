@@ -58,7 +58,7 @@ const Table = ({ data, decimal }) => {
         </div>
       </div>
 
-      <table className='table table-bordered table-sm'>
+      <table className='table table-bordered table-sm table-responsive'>
         <thead>
           <tr className='text-center table-primary'>
             {time && <th scope='col'>Open Time</th>}

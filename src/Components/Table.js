@@ -79,11 +79,11 @@ const Table = ({ data, decimal }) => {
               <th scope='col'>{converter(avg(1))}</th>
               <th scope='col'>{converter(avg(2))}</th>
               <th scope='col' className='text-center'>
-                {converter((avg(2) / avg(1)) * 100 - 100)}
+                {((avg(2) / avg(1)) * 100 - 100).toFixed(2)}
               </th>
               <th scope='col'>{converter(avg(3))}</th>
               <th scope='col' className='text-center'>
-                {converter(100 - (100 * avg(3)) / avg(1))}
+                {(100 - (100 * avg(3)) / avg(1)).toFixed(2)}
               </th>
               <th scope='col'>{converter(avg(4))}</th>
               <th scope='col'>{converter((avg(4) + avg(1)) / 2)}</th>
@@ -99,8 +99,8 @@ const Table = ({ data, decimal }) => {
         <tbody>
           {data.map((data, i) => {
             const ave = parseFloat(data[1]) + parseFloat(data[4]);
-            const high = (data[2] / data[1]) * 100 - 100;
-            const low = 100 - (100 * data[3]) / data[1];
+            const high = ((data[2] / data[1]) * 100 - 100).toFixed(2);
+            const low = (100 - (100 * data[3]) / data[1]).toFixed(2);
             const classes =
               data[1] < data[4] ? 'table-success' : 'table-danger';
 
@@ -113,9 +113,9 @@ const Table = ({ data, decimal }) => {
                 )}
                 <td className='text-end'>{converter(data[1])}</td>
                 <td className='text-end'>{converter(data[2])}</td>
-                <td className='text-center'>{converter(high)}</td>
+                <td className='text-center'>{high}</td>
                 <td className='text-end'>{converter(data[3])}</td>
-                <td className='text-center'>{converter(low)}</td>
+                <td className='text-center'>{low}</td>
                 <td className='text-end'>{converter(data[4])}</td>
                 <td className={`text-end ${classes}`}>{converter(ave / 2)}</td>
                 {time && (

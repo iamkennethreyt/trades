@@ -29,7 +29,7 @@ const Header = () => {
       <nav className='navbar navbar-light bg-light'>
         <div className='container'>
           <Link className='navbar-brand' to='/'>
-            Crypto
+            Cryp<strong>23</strong>rd
           </Link>
           <div className='d-flex'>
             <div className='input-group'>

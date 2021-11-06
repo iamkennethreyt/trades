@@ -1,19 +1,22 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 import Header from './Components/Header';
 import Search from './Components/Search';
 import Table from './Components/Table';
-import { useState, useEffect } from 'react';
 import Footer from './Components/Footer';
 import Calculator from './Components/Calculator';
 
 const API = 'https://api3.binance.com/api/v3/klines?';
 
 const App = () => {
+  const [data, setData] = useState([]);
+
   const [symbol, setSymbol] = useState('SHIBBUSD');
   const [limit, setLimit] = useState(20);
   const [interval, setInterval] = useState('1m');
   const [decimal, setDecimal] = useState(8);
-  const [data, setData] = useState([]);
+
   const [average, setAverage] = useState(true);
   const [time, setTime] = useState(false);
   const [trades, setTrades] = useState(false);
@@ -22,8 +25,6 @@ const App = () => {
   useEffect(() => {
     const getData = async () => {
       await onSearch();
-      //const dataFromServer =
-      // setData(dataFromServer);
     };
 
     getData();
@@ -43,15 +44,13 @@ const App = () => {
     setData(fetchedData.reverse());
   };
 
-  const onTime = () => onSearch();
-
   return (
     <Router>
       <Header />
       <Route
         path='/'
         exact
-        render={(props) => (
+        render={() => (
           <>
             <Search
               symbol={symbol}
@@ -67,7 +66,7 @@ const App = () => {
             <Table
               data={data}
               decimal={decimal}
-              onTime={onTime}
+              onTime={onSearch}
               average={average}
               setAverage={setAverage}
               time={time}

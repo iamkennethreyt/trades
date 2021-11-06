@@ -1,5 +1,9 @@
 const symbols = [
   {
+    value: 'SHIBBUSD',
+    label: 'SHIB/BUSD'
+  },
+  {
     value: 'BNBBUSD',
     label: 'BNB/BUSD'
   },
@@ -56,10 +60,6 @@ const symbols = [
   {
     value: 'BCHBUSD',
     label: 'BCH/BUSD'
-  },
-  {
-    value: 'SHIBBUSD',
-    label: 'SHIB/BUSD'
   }
 ];
 

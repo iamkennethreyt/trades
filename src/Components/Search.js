@@ -21,8 +21,8 @@ const Search = ({
 
   return (
     <div className='container'>
-      <form className='row g-3 my-3' onSubmit={onSubmit}>
-        <div className='col-auto form-floating'>
+      <form className='row g-2 my-3' onSubmit={onSubmit}>
+        <div className='col-md-2 col-auto form-floating'>
           <select
             className='form-select'
             id='symbols'
@@ -39,7 +39,7 @@ const Search = ({
           <label htmlFor='symbols'>Select Symbols</label>
         </div>
 
-        <div className='col-auto form-floating'>
+        <div className='col-md-2 col-auto form-floating'>
           <select
             readOnly
             className='form-select'
@@ -56,7 +56,7 @@ const Search = ({
           <label htmlFor='intervals'>Select Intervals</label>
         </div>
 
-        <div className='col-auto form-floating'>
+        <div className='col-md-2 col-auto form-floating'>
           <input
             type='number'
             className='form-control'
@@ -66,8 +66,7 @@ const Search = ({
           />
           <label htmlFor='limit'>Limit</label>
         </div>
-
-        <div className='col-auto form-floating'>
+        <div className='col-md-2 col-auto form-floating'>
           <input
             type='number'
             className='form-control'
@@ -77,10 +76,12 @@ const Search = ({
           />
           <label htmlFor='decimal'>Decimal</label>
         </div>
-        <div className='col-auto'>
-          <button type='submit' className='btn btn-primary py-3'>
-            Search
-          </button>
+        <div className='col-md-2 col-auto'>
+          <input
+            type='submit'
+            className='btn btn-primary py-3 px-4'
+            value='Search'
+          />
         </div>
       </form>
     </div>

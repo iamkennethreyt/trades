@@ -1,8 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import { useState } from 'react';
 import Timer from './Timer';
-import Clock from 'react-live-clock';
 
 const Table = ({
   data,

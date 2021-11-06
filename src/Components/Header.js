@@ -31,24 +31,6 @@ const Header = () => {
           <Link className='navbar-brand' to='/'>
             Crypto
           </Link>
-          {/* <ul className='navbar-nav ms-auto mb-2 mb-lg-0'>
-            <li className='nav-item'>
-              <Link className='nav-link' to='/calculator'>
-                Calculator
-              </Link>
-            </li>
-          </ul> */}
-          {/* <form class='d-flex'>
-            <input
-              class='form-control me-2'
-              type='search'
-              placeholder='Search'
-              aria-label='Search'
-            />
-            <button class='btn btn-outline-success' type='submit'>
-              Search
-            </button>
-          </form> */}
           <div className='d-flex'>
             <div className='input-group'>
               <input

@@ -9,34 +9,25 @@ import Calculator from './Components/Calculator';
 const API = 'https://api3.binance.com/api/v3/klines?';
 
 const App = () => {
-  const [symbol, setSymbol] = useState('BNBBUSD');
+  const [symbol, setSymbol] = useState('SHIBBUSD');
   const [limit, setLimit] = useState(20);
-  const [interval, setInterval] = useState('1h');
-  const [decimal, setDecimal] = useState(2);
+  const [interval, setInterval] = useState('1m');
+  const [decimal, setDecimal] = useState(8);
   const [data, setData] = useState([]);
+  const [average, setAverage] = useState(true);
+  const [time, setTime] = useState(false);
+  const [trades, setTrades] = useState(false);
+  const [scalping, setScalping] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
-      const dataFromServer = await fetchData();
-      setData(dataFromServer);
+      await onSearch();
+      //const dataFromServer =
+      // setData(dataFromServer);
     };
 
     getData();
   }, []);
-
-  const fetchData = async () => {
-    const res = await fetch(
-      API +
-        new URLSearchParams({
-          symbol,
-          interval,
-          limit
-        })
-    );
-
-    const fetchedData = await res.json();
-    return fetchedData.reverse();
-  };
 
   const onSearch = async () => {
     const res = await fetch(
@@ -52,19 +43,7 @@ const App = () => {
     setData(fetchedData.reverse());
   };
 
-  const onChangeSymbol = (e) => {
-    setSymbol(e);
-  };
-  const onChangeInterval = (e) => {
-    setInterval(e);
-  };
-  const onChangeLimit = (e) => {
-    setLimit(e);
-  };
-
-  const onChangeDecimal = (e) => {
-    setDecimal(e);
-  };
+  const onTime = () => onSearch();
 
   return (
     <Router>
@@ -79,13 +58,25 @@ const App = () => {
               interval={interval}
               limit={limit}
               decimal={decimal}
-              setSymbol={onChangeSymbol}
-              setInterval={onChangeInterval}
-              setLimit={onChangeLimit}
-              setDecimal={onChangeDecimal}
+              setSymbol={setSymbol}
+              setInterval={setInterval}
+              setLimit={setLimit}
+              setDecimal={setDecimal}
               onSearch={onSearch}
             />
-            <Table data={data} decimal={decimal} />
+            <Table
+              data={data}
+              decimal={decimal}
+              onTime={onTime}
+              average={average}
+              setAverage={setAverage}
+              time={time}
+              setTime={setTime}
+              trades={trades}
+              setTrades={setTrades}
+              scalping={scalping}
+              setScalping={setScalping}
+            />
           </>
         )}
       />

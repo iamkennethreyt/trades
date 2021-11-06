@@ -1,32 +1,75 @@
 import moment from 'moment';
 import React from 'react';
 import { useState } from 'react';
+import Timer from './Timer';
+import Clock from 'react-live-clock';
 
-const Table = ({ data, decimal }) => {
+const Table = ({
+  data,
+  decimal,
+  onTime,
+  average,
+  setAverage,
+  time,
+  trades,
+  scalping,
+  setTime,
+  setTrades,
+  setScalping
+}) => {
   const converter = (num) => parseFloat(num).toFixed(decimal);
-
-  const [average, setAverage] = useState(true);
-  const [time, setTime] = useState(false);
-  const [trades, setTrades] = useState(false);
 
   const avg = (x) =>
     data.reduce((r, c) => r + parseFloat(c[x]), 0) / data.length;
 
   return (
     <div className='container'>
-      <div className='me-auto'>
-        <div className='form-check form-check-inline form-switch'>
-          <input
-            className='form-check-input'
-            type='checkbox'
-            value=''
-            id='average'
-            onChange={() => setAverage(!average)}
-            checked={average}
-          />
-          <label className='form-check-label' htmlFor='average'>
-            Show Average
-          </label>
+      <div className='d-flex justify-content-end'>
+        {scalping && <Timer onTime={onTime} />}
+      </div>
+      <div className='d-flex justify-content-between'>
+        <div>
+          <div className='form-check form-check-inline form-switch'>
+            <input
+              className='form-check-input'
+              type='checkbox'
+              value=''
+              id='average'
+              onChange={() => setAverage(!average)}
+              checked={average}
+            />
+            <label className='form-check-label' htmlFor='average'>
+              Show Average
+            </label>
+          </div>
+
+          <div className='form-check form-check-inline form-switch'>
+            <input
+              className='form-check-input'
+              type='checkbox'
+              value=''
+              id='time'
+              onChange={() => setTime(!time)}
+              checked={time}
+            />
+            <label className='form-check-label' htmlFor='time'>
+              Show Time
+            </label>
+          </div>
+
+          <div className='form-check form-check-inline form-switch'>
+            <input
+              className='form-check-input'
+              type='checkbox'
+              value=''
+              id='trades'
+              onChange={() => setTrades(!trades)}
+              checked={trades}
+            />
+            <label className='form-check-label' htmlFor='trades'>
+              Show Trades
+            </label>
+          </div>
         </div>
 
         <div className='form-check form-check-inline form-switch'>
@@ -34,26 +77,12 @@ const Table = ({ data, decimal }) => {
             className='form-check-input'
             type='checkbox'
             value=''
-            id='time'
-            onChange={() => setTime(!time)}
-            checked={time}
+            id='scalping'
+            onChange={() => setScalping(!scalping)}
+            checked={scalping}
           />
-          <label className='form-check-label' htmlFor='time'>
-            Show Time
-          </label>
-        </div>
-
-        <div className='form-check form-check-inline form-switch'>
-          <input
-            className='form-check-input'
-            type='checkbox'
-            value=''
-            id='trades'
-            onChange={() => setTrades(!trades)}
-            checked={trades}
-          />
-          <label className='form-check-label' htmlFor='trades'>
-            Show Trades
+          <label className='form-check-label' htmlFor='scalping'>
+            Scalping
           </label>
         </div>
       </div>

@@ -1,89 +1,14 @@
 import moment from 'moment';
 import React from 'react';
-import Timer from './Timer';
 
-const Table = ({
-  data,
-  decimal,
-  onTime,
-  average,
-  setAverage,
-  time,
-  trades,
-  scalping,
-  setTime,
-  setTrades,
-  setScalping
-}) => {
+const Table = ({ data, decimal, average, time, trades }) => {
   const converter = (num) => parseFloat(num).toFixed(decimal);
 
   const avg = (x) =>
     data.reduce((r, c) => r + parseFloat(c[x]), 0) / data.length;
 
   return (
-    <div className='container'>
-      <div className='d-flex justify-content-end'>
-        {scalping && <Timer onTime={onTime} />}
-      </div>
-      <div className='d-flex justify-content-between'>
-        <div>
-          <div className='form-check form-check-inline form-switch'>
-            <input
-              className='form-check-input'
-              type='checkbox'
-              value=''
-              id='average'
-              onChange={() => setAverage(!average)}
-              checked={average}
-            />
-            <label className='form-check-label' htmlFor='average'>
-              Show Average
-            </label>
-          </div>
-
-          <div className='form-check form-check-inline form-switch'>
-            <input
-              className='form-check-input'
-              type='checkbox'
-              value=''
-              id='time'
-              onChange={() => setTime(!time)}
-              checked={time}
-            />
-            <label className='form-check-label' htmlFor='time'>
-              Show Time
-            </label>
-          </div>
-
-          <div className='form-check form-check-inline form-switch'>
-            <input
-              className='form-check-input'
-              type='checkbox'
-              value=''
-              id='trades'
-              onChange={() => setTrades(!trades)}
-              checked={trades}
-            />
-            <label className='form-check-label' htmlFor='trades'>
-              Show Trades
-            </label>
-          </div>
-        </div>
-
-        <div className='form-check form-check-inline form-switch'>
-          <input
-            className='form-check-input'
-            type='checkbox'
-            value=''
-            id='scalping'
-            onChange={() => setScalping(!scalping)}
-            checked={scalping}
-          />
-          <label className='form-check-label' htmlFor='scalping'>
-            Scalping
-          </label>
-        </div>
-      </div>
+    <div className=''>
       <div className='table-responsive'>
         <table className='table table-bordered table-sm'>
           <thead>

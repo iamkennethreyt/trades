@@ -11,7 +11,11 @@ const Timer = ({ onTime }) => {
     return () => clearInterval(intervalClock);
   }, []);
 
-  return <label>{<Clock format={'HH:mm:ss'} ticking={true} />}</label>;
+  return (
+    <label className='py-1'>
+      Refresh in ({<Clock format={'ss'} ticking={true} />}) seconds
+    </label>
+  );
 };
 
 export default Timer;

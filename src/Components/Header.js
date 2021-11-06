@@ -8,21 +8,15 @@ const Header = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const dataFromServer = await fetchData();
+      const res = await fetch(
+        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=php&ids=binance-usd'
+      );
+      const dataFromServer = await res.json();
       setCurentPrice(dataFromServer[0].current_price);
     };
 
     getData();
   }, []);
-
-  const fetchData = async () => {
-    const res = await fetch(
-      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=php&ids=binance-usd'
-    );
-
-    const fetchedData = await res.json();
-    return fetchedData;
-  };
 
   return (
     <header>

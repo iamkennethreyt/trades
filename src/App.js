@@ -5,7 +5,9 @@ import Header from './Components/Header';
 import Search from './Components/Search';
 import Table from './Components/Table';
 import Footer from './Components/Footer';
-import Calculator from './Components/Calculator';
+import Timer from './Components/Timer';
+import Price from './Components/Price';
+import Options from './Components/Options';
 
 const API = 'https://api3.binance.com/api/v3/klines?';
 
@@ -51,7 +53,7 @@ const App = () => {
         path='/'
         exact
         render={() => (
-          <>
+          <div className='container'>
             <Search
               symbol={symbol}
               interval={interval}
@@ -63,24 +65,36 @@ const App = () => {
               setDecimal={setDecimal}
               onSearch={onSearch}
             />
-            <Table
-              data={data}
-              decimal={decimal}
-              onTime={onSearch}
-              average={average}
-              setAverage={setAverage}
-              time={time}
-              setTime={setTime}
-              trades={trades}
-              setTrades={setTrades}
-              scalping={scalping}
-              setScalping={setScalping}
-            />
-          </>
+            <div className='row'>
+              <div className='col-md-10'>
+                <Table
+                  data={data}
+                  decimal={decimal}
+                  average={average}
+                  time={time}
+                  trades={trades}
+                />
+              </div>
+              <div className='col-md-2'>
+                {scalping && <Price symbol={symbol} />}
+                {scalping && <Timer onTime={onSearch} />}
+                <Options
+                  average={average}
+                  time={time}
+                  trades={trades}
+                  scalping={scalping}
+                  setAverage={setAverage}
+                  setTime={setTime}
+                  setTrades={setTrades}
+                  setScalping={setScalping}
+                />
+              </div>
+            </div>
+          </div>
         )}
       />
 
-      <Route path='/calculator' component={Calculator} />
+      {/* <Route path='/calculator' component={Calculator} /> */}
       <Footer />
     </Router>
   );

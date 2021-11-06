@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 const { version } = require('../../package.json');
 
 const Footer = () => {
-  console.log(version);
   return (
     <footer className='footer-light bg-light'>
       <div

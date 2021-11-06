@@ -20,7 +20,7 @@ const Search = ({
   };
 
   return (
-    <div className='container'>
+    <div className=''>
       <form className='row g-2 my-3' onSubmit={onSubmit}>
         <div className='col-md-2 col-auto form-floating'>
           <select

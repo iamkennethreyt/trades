@@ -23,20 +23,13 @@ const Search = ({
     <div className=''>
       <form className='row g-2 my-3' onSubmit={onSubmit}>
         <div className='col-md-2 col-auto form-floating'>
-          <select
-            className='form-select'
+          <input
+            className='form-control'
             id='symbols'
-            readOnly
             onChange={(e) => setSymbol(e.target.value)}
             defaultValue={symbol}
-          >
-            {symbols.map((s, i) => (
-              <option key={i} value={s.value}>
-                {s.label}
-              </option>
-            ))}
-          </select>
-          <label htmlFor='symbols'>Select Symbols</label>
+          ></input>
+          <label htmlFor='symbols'>Input Symbols</label>
         </div>
 
         <div className='col-md-2 col-auto form-floating'>

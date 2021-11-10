@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import axios from 'axios';
 const Price = ({ symbol }) => {
   const [state, setState] = useState({ price: 0 });
   useEffect(() => {
@@ -14,11 +14,11 @@ const Price = ({ symbol }) => {
   }, []);
 
   const fetchData = async () => {
-    const res = await fetch(
-      `https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`
-    );
+    const res = await axios.get(`https://api.binance.com/api/v3/ticker/price`, {
+      params: { symbol }
+    });
 
-    return await res.json();
+    return res.data;
   };
 
   return (

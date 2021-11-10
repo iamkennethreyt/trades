@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -8,11 +9,13 @@ import Footer from './Components/Footer';
 import Timer from './Components/Timer';
 import Price from './Components/Price';
 import Options from './Components/Options';
+import TopTrades from './Components/TopTrades';
 
 const API = 'https://api3.binance.com/api/v3/klines?';
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [market, setMarket] = useState([]);
 
   const [symbol, setSymbol] = useState('SHIBBUSD');
   const [limit, setLimit] = useState(20);
@@ -27,22 +30,44 @@ const App = () => {
   useEffect(() => {
     const getData = async () => {
       await onSearch();
+      await fetchTopMarket();
     };
 
     getData();
   }, []);
 
-  const onSearch = async () => {
-    const res = await fetch(
-      API +
-        new URLSearchParams({
-          symbol,
-          interval,
-          limit
-        })
+  const sorting = (arr, prop) => {
+    return arr.sort((a, b) =>
+      a[prop] < b[prop] ? 1 : b[prop] < a[prop] ? -1 : 0
     );
+  };
 
-    const fetchedData = await res.json();
+  const fetchTopMarket = async () => {
+    const res = await axios.get('https://api3.binance.com/api/v3/ticker/24hr');
+
+    const output = await res.data.map((x) => {
+      return {
+        symbol: x.symbol,
+        priceChangePercent: parseFloat(x.priceChangePercent),
+        priceChange: parseFloat(x.priceChange)
+      };
+    });
+
+    const outputSorted = await sorting(output, 'priceChangePercent');
+    setMarket(outputSorted.slice(0, 16));
+    return;
+  };
+
+  const onSearch = async () => {
+    const res = await axios.get(API, {
+      params: {
+        symbol,
+        interval,
+        limit
+      }
+    });
+
+    const fetchedData = await res.data;
     setData(fetchedData.reverse());
   };
 
@@ -88,6 +113,7 @@ const App = () => {
                   setTrades={setTrades}
                   setScalping={setScalping}
                 />
+                <TopTrades market={market} />
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ const Price = ({ symbol }) => {
   useEffect(() => {
     const getData = async () => {
       const dataFromServer = await fetchData();
-      setState({ price: dataFromServer.price });
+      setState({ price: parseFloat(dataFromServer.price) });
     };
     const intervalClock = setInterval(() => {
       getData();
@@ -17,6 +17,8 @@ const Price = ({ symbol }) => {
     const res = await axios.get(`https://api.binance.com/api/v3/ticker/price`, {
       params: { symbol }
     });
+
+    // console.log(res.data);
 
     return res.data;
   };

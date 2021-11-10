@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -22,39 +23,35 @@ const App = () => {
   const [interval, setInterval] = useState('1m');
   const [decimal, setDecimal] = useState(8);
 
+  const [highToLow, setHighToLow] = useState(false);
   const [average, setAverage] = useState(true);
   const [time, setTime] = useState(false);
-  const [trades, setTrades] = useState(false);
+  const [trades, setTrades] = useState(true);
   const [scalping, setScalping] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       await onSearch();
-      await fetchTopMarket();
+      await onFetchTrade();
     };
 
     getData();
   }, []);
 
-  const sorting = (arr, prop) => {
-    return arr.sort((a, b) =>
-      a[prop] < b[prop] ? 1 : b[prop] < a[prop] ? -1 : 0
-    );
-  };
-
-  const fetchTopMarket = async () => {
+  const onFetchTrade = async () => {
     const res = await axios.get('https://api3.binance.com/api/v3/ticker/24hr');
 
     const output = await res.data.map((x) => {
       return {
         symbol: x.symbol,
-        priceChangePercent: parseFloat(x.priceChangePercent),
-        priceChange: parseFloat(x.priceChange)
+        priceChangePercent: Math.round(parseFloat(x.priceChangePercent)),
+        priceChange: Math.round(parseFloat(x.priceChange))
       };
     });
 
-    const outputSorted = await sorting(output, 'priceChangePercent');
-    setMarket(outputSorted.slice(0, 16));
+    const outputSorted = await output;
+
+    setMarket(outputSorted);
     return;
   };
 
@@ -69,6 +66,10 @@ const App = () => {
 
     const fetchedData = await res.data;
     setData(fetchedData.reverse());
+  };
+
+  const onToogle = async () => {
+    setHighToLow(!highToLow);
   };
 
   return (
@@ -112,15 +113,16 @@ const App = () => {
                   setTime={setTime}
                   setTrades={setTrades}
                   setScalping={setScalping}
+                  highToLow={highToLow}
+                  setHighToLow={onToogle}
                 />
-                <TopTrades market={market} />
+                <TopTrades market={market} highToLow={highToLow} />
               </div>
             </div>
           </div>
         )}
       />
 
-      {/* <Route path='/calculator' component={Calculator} /> */}
       <Footer />
     </Router>
   );

@@ -1,8 +1,22 @@
 import React from 'react';
 
-const TopTrades = ({ market }) => {
+const TopTrades = ({ market, highToLow }) => {
+  const sorting = (arr, prop) => {
+    if (highToLow) {
+      return arr.sort((a, b) =>
+        a[prop] < b[prop] ? 1 : b[prop] < a[prop] ? -1 : 0
+      );
+    } else {
+      return arr.sort((a, b) =>
+        a[prop] > b[prop] ? 1 : b[prop] > a[prop] ? -1 : 0
+      );
+    }
+  };
+
+  const data = sorting(market, 'priceChangePercent');
+
   return (
-    <div className='mt-3'>
+    <div className='mt-2'>
       <div className='table-responsive'>
         <table className='table table-bordered table-sm'>
           <thead>
@@ -11,7 +25,7 @@ const TopTrades = ({ market }) => {
             </tr>
           </thead>
           <tbody>
-            {market.map((x, i) => {
+            {data.slice(0, 16).map((x, i) => {
               return (
                 <tr key={i}>
                   <td className='d-flex justify-content-between'>

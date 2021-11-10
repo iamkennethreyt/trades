@@ -8,7 +8,9 @@ const Options = ({
   setTime,
   setAverage,
   setTrades,
-  setScalping
+  setScalping,
+  highToLow,
+  setHighToLow
 }) => {
   return (
     <div className='border rounded px-2'>
@@ -66,6 +68,20 @@ const Options = ({
         />
         <label className='form-check-label' htmlFor='scalping'>
           Scalping
+        </label>
+      </div>
+
+      <div className='form-check form-check-inline form-switch'>
+        <input
+          className='form-check-input'
+          type='checkbox'
+          value=''
+          id='highToLow'
+          onChange={() => setHighToLow(!highToLow)}
+          checked={highToLow}
+        />
+        <label className='form-check-label' htmlFor='highToLow'>
+          Top Trades
         </label>
       </div>
     </div>

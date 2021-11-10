@@ -1,7 +1,5 @@
 import React from 'react';
-
 import intervals from '../data/interval';
-import symbols from '../data/symbol';
 
 const Search = ({
   symbol,
@@ -26,7 +24,7 @@ const Search = ({
           <input
             className='form-control'
             id='symbols'
-            onChange={(e) => setSymbol(e.target.value)}
+            onChange={(e) => setSymbol(e.target.value.toUpperCase())}
             defaultValue={symbol}
           ></input>
           <label htmlFor='symbols'>Input Symbols</label>

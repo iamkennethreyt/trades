@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 const Header = () => {
-  const [curentPrice, setCurentPrice] = useState(0);
+  const [curentPrice, setCurentPrice] = useState('');
   const [value, setValue] = useState(1);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Header = () => {
           <div className='d-flex'>
             <div className='input-group'>
               <input
-                type='text'
+                type='number'
                 className='form-control text-end'
                 onChange={(e) => setValue(e.target.value)}
                 defaultValue={value}
@@ -36,7 +36,7 @@ const Header = () => {
               />
               <span className='input-group-text'>=</span>
               <span className='input-group-text'>
-                {(curentPrice * value).toFixed(2).toLocaleString()}
+                {(curentPrice * value).toLocaleString()}
               </span>
             </div>
           </div>

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-const Price = ({ symbol }) => {
+const Price = ({ symbol, triggerFunc }) => {
   const [state, setState] = useState({ price: 0 });
+
+  const getData = async () => {
+    const dataFromServer = await fetchData();
+    setState({ price: parseFloat(dataFromServer.price) });
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      const dataFromServer = await fetchData();
-      setState({ price: parseFloat(dataFromServer.price) });
-    };
     const intervalClock = setInterval(() => {
       getData();
     }, 1000);

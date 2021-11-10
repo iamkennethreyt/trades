@@ -32,7 +32,7 @@ const App = () => {
   useEffect(() => {
     const getData = async () => {
       await onSearch();
-      await onFetchTrade();
+      // await onFetchTrade();
     };
 
     getData();
@@ -66,6 +66,7 @@ const App = () => {
 
     const fetchedData = await res.data;
     setData(fetchedData.reverse());
+    await onFetchTrade();
   };
 
   const onToogle = async () => {

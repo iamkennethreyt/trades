@@ -21,7 +21,7 @@ const TopTrades = ({ market, highToLow }) => {
         <table className='table table-bordered table-sm'>
           <thead>
             <tr className='text-center table-primary'>
-              <th scope='col'>Top Trades</th>
+              <th scope='col'>{highToLow ? 'Top Trades' : 'Low Trades'}</th>
             </tr>
           </thead>
           <tbody>

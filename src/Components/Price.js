@@ -26,7 +26,7 @@ const Price = ({ symbol, triggerFunc }) => {
   };
 
   return (
-    <div className='border rounded text-end px-2'>
+    <div className='border rounded text-end px-2 mt-2'>
       <h3>{state.price}</h3>
     </div>
   );

@@ -103,8 +103,7 @@ const App = () => {
                 />
               </div>
               <div className='col-md-2'>
-                {scalping && <Price symbol={symbol} />}
-                {scalping && <Timer onTime={onSearch} />}
+                
                 <Options
                   average={average}
                   time={time}
@@ -117,6 +116,8 @@ const App = () => {
                   highToLow={highToLow}
                   setHighToLow={onToogle}
                 />
+                {scalping && <Price symbol={symbol} />}
+                {scalping && <Timer onTime={onSearch} />}
                 <TopTrades market={market} highToLow={highToLow} />
               </div>
             </div>

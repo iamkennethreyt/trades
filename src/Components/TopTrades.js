@@ -1,6 +1,7 @@
 import React from 'react';
+import symbols from '../data/symbol';
 
-const TopTrades = ({ market, highToLow }) => {
+const TopTrades = ({ market, highToLow, favouites }) => {
   const sorting = (arr, prop) => {
     if (highToLow) {
       return arr.sort((a, b) =>
@@ -13,7 +14,13 @@ const TopTrades = ({ market, highToLow }) => {
     }
   };
 
-  const data = sorting(market, 'priceChangePercent');
+  const toFilter = favouites
+    ? market.filter(
+        (arr) => symbols.filter((fav) => fav.value === arr.symbol).length !== 0
+      )
+    : market;
+
+  const data = sorting(toFilter, 'priceChangePercent');
 
   return (
     <div className='mt-2'>

@@ -28,6 +28,7 @@ const App = () => {
   const [time, setTime] = useState(false);
   const [trades, setTrades] = useState(true);
   const [scalping, setScalping] = useState(false);
+  const [favourites, setFavourites] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -86,6 +87,7 @@ const App = () => {
               interval={interval}
               limit={limit}
               decimal={decimal}
+              favourites={favourites}
               setSymbol={setSymbol}
               setInterval={setInterval}
               setLimit={setLimit}
@@ -103,22 +105,27 @@ const App = () => {
                 />
               </div>
               <div className='col-md-2'>
-                
                 <Options
                   average={average}
                   time={time}
                   trades={trades}
                   scalping={scalping}
+                  favourites={favourites}
                   setAverage={setAverage}
                   setTime={setTime}
                   setTrades={setTrades}
                   setScalping={setScalping}
+                  setFavourites={setFavourites}
                   highToLow={highToLow}
                   setHighToLow={onToogle}
                 />
                 {scalping && <Price symbol={symbol} />}
                 {scalping && <Timer onTime={onSearch} />}
-                <TopTrades market={market} highToLow={highToLow} />
+                <TopTrades
+                  market={market}
+                  highToLow={highToLow}
+                  favouites={favourites}
+                />
               </div>
             </div>
           </div>

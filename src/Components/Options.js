@@ -10,7 +10,9 @@ const Options = ({
   setTrades,
   setScalping,
   highToLow,
-  setHighToLow
+  setHighToLow,
+  favourites,
+  setFavourites
 }) => {
   return (
     <div className='border rounded px-2'>
@@ -82,6 +84,20 @@ const Options = ({
         />
         <label className='form-check-label' htmlFor='highToLow'>
           Top Trades
+        </label>
+      </div>
+
+      <div className='form-check form-check-inline form-switch'>
+        <input
+          className='form-check-input'
+          type='checkbox'
+          value=''
+          id='favourites'
+          onChange={() => setFavourites(!favourites)}
+          checked={favourites}
+        />
+        <label className='form-check-label' htmlFor='favourites'>
+          Favourites
         </label>
       </div>
     </div>

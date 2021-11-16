@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
+
 const Price = ({ symbol, triggerFunc }) => {
   const [state, setState] = useState({ price: 0 });
 
@@ -27,6 +29,9 @@ const Price = ({ symbol, triggerFunc }) => {
 
   return (
     <div className='border rounded text-end px-2 mt-2'>
+      <Helmet>
+        <title>{`${symbol} : ${state.price}`}</title>
+      </Helmet>
       <h3>{state.price}</h3>
     </div>
   );

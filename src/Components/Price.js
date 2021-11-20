@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
-const Price = ({ symbol, triggerFunc }) => {
+const Price = ({ symbol }) => {
   const [state, setState] = useState({ price: 0 });
 
   const getData = async () => {

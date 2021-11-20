@@ -33,11 +33,18 @@ const App = () => {
   useEffect(() => {
     const getData = async () => {
       await onSearch();
-      // await onFetchTrade();
+      await onFetchTrade();
     };
 
     getData();
   }, []);
+
+  const onSelectSymbol = async (x) => {
+    await setSymbol(x);
+    await console.log(symbol);
+    await onSearch();
+    return;
+  };
 
   const onFetchTrade = async () => {
     const res = await axios.get('https://api3.binance.com/api/v3/ticker/24hr');
@@ -125,6 +132,8 @@ const App = () => {
                   market={market}
                   highToLow={highToLow}
                   favouites={favourites}
+                  onToggle={onSelectSymbol}
+                  setSymbol={setSymbol}
                 />
               </div>
             </div>

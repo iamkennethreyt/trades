@@ -22,27 +22,22 @@ const App = () => {
   const [limit, setLimit] = useState(20);
   const [interval, setInterval] = useState('1m');
   const [decimal, setDecimal] = useState(8);
+  const [latestClose, setLatestClose] = useState(0);
 
   const [highToLow, setHighToLow] = useState(false);
   const [average, setAverage] = useState(true);
   const [time, setTime] = useState(false);
   const [trades, setTrades] = useState(true);
-  const [scalping, setScalping] = useState(false);
+  const [scalping, setScalping] = useState(true);
   const [favourites, setFavourites] = useState(true);
 
   useEffect(() => {
-    const getData = async () => {
-      await onSearch();
-      await onFetchTrade();
-    };
+    onSearch();
+  }, [symbol, limit, interval]);
 
-    getData();
-  }, []);
-
-  const onSelectSymbol = async (x) => {
-    await setSymbol(x);
-    await console.log(symbol);
-    await onSearch();
+  const onSelectSymbol = (x) => {
+    setSymbol(x);
+    onSearch();
     return;
   };
 
@@ -72,13 +67,19 @@ const App = () => {
       }
     });
 
-    const fetchedData = await res.data;
-    setData(fetchedData.reverse());
+    const fetchedData = await res.data.reverse();
+    await setData(fetchedData);
+    await setLatestClose(fetchedData[0][3]);
     await onFetchTrade();
   };
 
   const onToogle = async () => {
     setHighToLow(!highToLow);
+  };
+
+  const onChangeSymbol = (e) => {
+    console.log(e);
+    setSymbol(e);
   };
 
   return (
@@ -95,7 +96,7 @@ const App = () => {
               limit={limit}
               decimal={decimal}
               favourites={favourites}
-              setSymbol={setSymbol}
+              setSymbol={onChangeSymbol}
               setInterval={setInterval}
               setLimit={setLimit}
               setDecimal={setDecimal}
@@ -126,7 +127,9 @@ const App = () => {
                   highToLow={highToLow}
                   setHighToLow={onToogle}
                 />
-                {scalping && <Price symbol={symbol} />}
+                {scalping && (
+                  <Price symbol={symbol} latestClose={latestClose} />
+                )}
                 {scalping && <Timer onTime={onSearch} />}
                 <TopTrades
                   market={market}

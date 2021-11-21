@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
-const Price = ({ symbol }) => {
+const Price = ({ symbol, latestClose }) => {
   const [state, setState] = useState({ price: 0 });
 
   const getData = async () => {
@@ -14,15 +14,14 @@ const Price = ({ symbol }) => {
     const intervalClock = setInterval(() => {
       getData();
     }, 1000);
+
     return () => clearInterval(intervalClock);
-  }, []);
+  }, [symbol]);
 
   const fetchData = async () => {
     const res = await axios.get(`https://api.binance.com/api/v3/ticker/price`, {
       params: { symbol }
     });
-
-    // console.log(res.data);
 
     return res.data;
   };
@@ -32,7 +31,10 @@ const Price = ({ symbol }) => {
       <Helmet>
         <title>{`${symbol} : ${state.price}`}</title>
       </Helmet>
-      <h3>{state.price}</h3>
+
+      <h3 style={{ color: `${latestClose > state.price ? 'red' : 'green'}` }}>
+        {state.price}
+      </h3>
     </div>
   );
 };

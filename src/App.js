@@ -130,7 +130,7 @@ const App = () => {
                 {scalping && (
                   <Price symbol={symbol} latestClose={latestClose} />
                 )}
-                {scalping && <Timer onTime={onSearch} />}
+                {scalping && <Timer onSearch={onSearch} symbol={symbol} />}
                 <TopTrades
                   market={market}
                   highToLow={highToLow}

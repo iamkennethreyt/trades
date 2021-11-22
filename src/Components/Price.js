@@ -11,10 +11,10 @@ const Price = ({ symbol, latestClose, onSearch }) => {
   };
 
   useEffect(() => {
-    if (new Date().getSeconds() === 0) {
-      onSearch();
-    }
     const intervalClock = setInterval(() => {
+      if (new Date().getSeconds() === 0) {
+        onSearch();
+      }
       getData();
     }, 1000);
 

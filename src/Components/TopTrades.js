@@ -60,7 +60,8 @@ const TopTrades = ({
                   className={`${x.symbol === symbol && 'table-info fw-bold'}`}
                 >
                   <td className='d-flex justify-content-between'>
-                    <span>{x.symbol}</span> <span>{x.priceChangePercent}</span>
+                    <span>{x.symbol}</span>{' '}
+                    <span>{x.priceChangePercent.toFixed(2)}</span>
                   </td>
                 </tr>
               );

@@ -62,7 +62,7 @@ const App = () => {
     const output = await res.data.map((x) => {
       return {
         symbol: x.symbol,
-        priceChangePercent: Math.round(parseFloat(x.priceChangePercent)),
+        priceChangePercent: parseFloat(x.priceChangePercent),
         priceChange: Math.round(parseFloat(x.priceChange))
       };
     });
@@ -158,7 +158,11 @@ const App = () => {
                   setHighToLow={onToogle}
                 />
                 {scalping && (
-                  <Price symbol={symbol} latestClose={latestClose} />
+                  <Price
+                    symbol={symbol}
+                    latestClose={latestClose}
+                    onSearch={onSearch}
+                  />
                 )}
                 {scalping && <Timer onSearch={onSearch} symbol={symbol} />}
               </div>

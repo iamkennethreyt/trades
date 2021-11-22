@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
-const Price = ({ symbol, latestClose }) => {
+const Price = ({ symbol, latestClose, onSearch }) => {
   const [state, setState] = useState({ price: 0 });
 
   const getData = async () => {
@@ -11,6 +11,9 @@ const Price = ({ symbol, latestClose }) => {
   };
 
   useEffect(() => {
+    if (new Date().getSeconds() === 0) {
+      onSearch();
+    }
     const intervalClock = setInterval(() => {
       getData();
     }, 1000);

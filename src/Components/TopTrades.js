@@ -1,7 +1,14 @@
 import React from 'react';
 import symbols from '../data/symbol';
 
-const TopTrades = ({ market, highToLow, favouites, onToggle }) => {
+const TopTrades = ({
+  market,
+  highToLow,
+  favouites,
+  onToggle,
+  symbol,
+  setHighToLow
+}) => {
   const sorting = (arr, prop) => {
     if (highToLow) {
       return arr.sort((a, b) =>
@@ -23,21 +30,34 @@ const TopTrades = ({ market, highToLow, favouites, onToggle }) => {
   const data = sorting(toFilter, 'priceChangePercent');
 
   return (
-    <div className='mt-2'>
+    <div className=''>
       <div className='table-responsive'>
         <table className='table table-bordered table-sm table-hover'>
           <thead>
-            <tr className='text-center table-primary'>
-              <th scope='col'>{highToLow ? 'Top Trades' : 'Low Trades'}</th>
+            <tr className='text-center'>
+              <th scope='col'>
+                <div className='form-check form-check-inline form-switch'>
+                  <label>{highToLow ? 'Top Trades' : 'Low Trades'}</label>
+                  <input
+                    className='form-check-input'
+                    type='checkbox'
+                    value=''
+                    id='highToLow'
+                    onChange={() => setHighToLow(!highToLow)}
+                    checked={highToLow}
+                  />
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {data.slice(0, 16).map((x, i) => {
+            {data.slice(0, 51).map((x, i) => {
               return (
                 <tr
                   key={i}
                   onClick={() => onToggle(x.symbol)}
                   style={{ cursor: 'pointer' }}
+                  className={`${x.symbol === symbol && 'table-info fw-bold'}`}
                 >
                   <td className='d-flex justify-content-between'>
                     <span>{x.symbol}</span> <span>{x.priceChangePercent}</span>

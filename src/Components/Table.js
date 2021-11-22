@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 
-const Table = ({ data, decimal, average, time, trades }) => {
+const Table = ({ data, decimal, average, time, trades, symbol }) => {
   const converter = (num) => parseFloat(num).toFixed(decimal);
 
   const avg = (x) =>
@@ -57,7 +57,7 @@ const Table = ({ data, decimal, average, time, trades }) => {
                 data[1] < data[4] ? 'table-success' : 'table-danger';
 
               return (
-                <tr key={i}>
+                <tr key={i} className={`${classes}`}>
                   {time && (
                     <td className='text-center'>
                       {moment(data[0]).format('MM/DD, h:mm A')}
@@ -69,9 +69,7 @@ const Table = ({ data, decimal, average, time, trades }) => {
                   <td className='text-end'>{converter(data[3])}</td>
                   <td className='text-center'>{low}</td>
                   <td className='text-end'>{converter(data[4])}</td>
-                  <td className={`text-end ${classes}`}>
-                    {converter(ave / 2)}
-                  </td>
+                  <td className='text-end'>{converter(ave / 2)}</td>
                   {time && (
                     <td className='text-center'>
                       {moment(data[6]).format('MM/DD, h:mm A')}

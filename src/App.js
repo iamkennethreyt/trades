@@ -19,21 +19,36 @@ const App = () => {
   const [market, setMarket] = useState([]);
 
   const [symbol, setSymbol] = useState('SHIBBUSD');
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(50);
   const [interval, setInterval] = useState('1m');
   const [decimal, setDecimal] = useState(8);
   const [latestClose, setLatestClose] = useState(0);
 
-  const [highToLow, setHighToLow] = useState(false);
+  const [highToLow, setHighToLow] = useState(true);
   const [average, setAverage] = useState(true);
   const [time, setTime] = useState(false);
   const [trades, setTrades] = useState(true);
   const [scalping, setScalping] = useState(true);
-  const [favourites, setFavourites] = useState(true);
+  const [favourites, setFavourites] = useState(false);
 
   useEffect(() => {
     onSearch();
+    fetchTicker();
   }, [symbol, limit, interval]);
+
+  const countDecimals = (value) => {
+    if (value % 1 !== 0) return value.toString().split('.')[1].length;
+    return 0;
+  };
+
+  const fetchTicker = async () => {
+    const res = await axios.get(`https://api.binance.com/api/v3/ticker/price`, {
+      params: { symbol }
+    });
+
+    setDecimal(countDecimals(parseFloat(res.data.price)));
+    return;
+  };
 
   const onSelectSymbol = (x) => {
     setSymbol(x);
@@ -64,6 +79,9 @@ const App = () => {
         symbol,
         interval,
         limit
+      },
+      headers: {
+        // 'Access-Control-Allow-Origin': '*'
       }
     });
 
@@ -103,13 +121,25 @@ const App = () => {
               onSearch={onSearch}
             />
             <div className='row'>
-              <div className='col-md-10'>
+              <div className='col-md-2'>
+                <TopTrades
+                  market={market}
+                  highToLow={highToLow}
+                  setHighToLow={setHighToLow}
+                  favouites={favourites}
+                  onToggle={onSelectSymbol}
+                  setSymbol={setSymbol}
+                  symbol={symbol}
+                />
+              </div>
+              <div className='col-md-8'>
                 <Table
                   data={data}
                   decimal={decimal}
                   average={average}
                   time={time}
                   trades={trades}
+                  symbol={symbol}
                 />
               </div>
               <div className='col-md-2'>
@@ -131,13 +161,6 @@ const App = () => {
                   <Price symbol={symbol} latestClose={latestClose} />
                 )}
                 {scalping && <Timer onSearch={onSearch} symbol={symbol} />}
-                <TopTrades
-                  market={market}
-                  highToLow={highToLow}
-                  favouites={favourites}
-                  onToggle={onSelectSymbol}
-                  setSymbol={setSymbol}
-                />
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import intervals from '../data/interval';
 import symbols from '../data/symbol';
 
@@ -19,6 +19,10 @@ const Search = ({
     onSearch();
   };
 
+  useEffect(() => {
+    // onSearch();
+  }, [symbol, limit, interval]);
+
   return (
     <div className=''>
       <form className='row g-2 my-3' onSubmit={onSubmit}>
@@ -30,7 +34,7 @@ const Search = ({
               aria-label='Floating label select example'
               readOnly
               onChange={(e) => setSymbol(e.target.value)}
-              defaultValue={symbol}
+              value={symbol}
             >
               {symbols.map((s, i) => (
                 <option key={i} value={s.value}>
@@ -79,7 +83,7 @@ const Search = ({
           />
           <label htmlFor='limit'>Limit</label>
         </div>
-        <div className='col-md-2 col-auto form-floating'>
+        {/* <div className='col-md-2 col-auto form-floating'>
           <input
             type='number'
             className='form-control'
@@ -88,7 +92,7 @@ const Search = ({
             defaultValue={decimal}
           />
           <label htmlFor='decimal'>Decimal</label>
-        </div>
+        </div> */}
         <div className='col-md-2 col-auto'>
           <input
             type='submit'

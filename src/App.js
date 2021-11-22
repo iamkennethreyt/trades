@@ -62,12 +62,11 @@ const App = () => {
     const output = await res.data.map((x) => {
       return {
         symbol: x.symbol,
-        priceChangePercent: parseFloat(x.priceChangePercent),
-        priceChange: Math.round(parseFloat(x.priceChange))
+        priceChangePercent: parseFloat(x.priceChangePercent)
       };
     });
 
-    const outputSorted = await output;
+    const outputSorted = await output.filter((x) => x.symbol.includes('BUSD'));
 
     setMarket(outputSorted);
     return;
@@ -79,9 +78,6 @@ const App = () => {
         symbol,
         interval,
         limit
-      },
-      headers: {
-        // 'Access-Control-Allow-Origin': '*'
       }
     });
 

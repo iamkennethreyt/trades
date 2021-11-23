@@ -51,7 +51,7 @@ const TopTrades = ({
             </tr>
           </thead>
           <tbody>
-            {data.slice(0, 51).map((x, i) => {
+            {data.slice(0, 23).map((x, i) => {
               return (
                 <tr
                   key={i}

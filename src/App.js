@@ -20,7 +20,7 @@ const App = () => {
   const [market, setMarket] = useState([]);
 
   const [symbol, setSymbol] = useState('SHIBBUSD');
-  const [limit, setLimit] = useState(50);
+  const [limit, setLimit] = useState(22);
   const [interval, setInterval] = useState('1m');
   const [decimal, setDecimal] = useState(8);
   const [latestClose, setLatestClose] = useState(0);
@@ -31,6 +31,7 @@ const App = () => {
   const [trades, setTrades] = useState(true);
   const [scalping, setScalping] = useState(true);
   const [favourites, setFavourites] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     onSearch();
@@ -100,6 +101,23 @@ const App = () => {
   return (
     <Router>
       <Header />
+      {showAlert && (
+        <div className='container mt-3'>
+          <div
+            className='alert alert-danger alert-dismissible fade show'
+            role='alert'
+          >
+            <strong>Trigger Alert!</strong>
+            <button
+              type='button'
+              className='btn-close'
+              aria-label='Close'
+              onClick={() => setShowAlert(false)}
+            ></button>
+          </div>
+        </div>
+      )}
+
       <Route
         path='/'
         exact
@@ -163,7 +181,11 @@ const App = () => {
                       onSearch={onSearch}
                     />
                     <Timer onSearch={onSearch} symbol={symbol} />
-                    <TopMarket onToggle={onSelectSymbol} symbol={symbol} />
+                    <TopMarket
+                      onToggle={onSelectSymbol}
+                      symbol={symbol}
+                      setShowAlert={setShowAlert}
+                    />
                   </div>
                 )}
               </div>

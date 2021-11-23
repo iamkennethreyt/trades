@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 const axios = require('axios');
 
-const TopMarket = ({ onToggle, symbol }) => {
+const TopMarket = ({ onToggle, symbol, setShowAlert }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const TopMarket = ({ onToggle, symbol }) => {
       a['trades'] < b['trades'] ? 1 : b['trades'] < a['trades'] ? -1 : 0
     );
 
-    const sliced = sorting.slice(0, 20);
+    const sliced = sorting.slice(0, 15);
 
     setData(sliced);
 
@@ -57,6 +57,9 @@ const TopMarket = ({ onToggle, symbol }) => {
           </thead>
           <tbody>
             {data.map((x, i) => {
+              if (x.trades > 1000) {
+                setShowAlert(true);
+              }
               return (
                 <tr
                   key={i}
@@ -71,21 +74,6 @@ const TopMarket = ({ onToggle, symbol }) => {
                 </tr>
               );
             })}
-            {/* {data.slice(0, 51).map((x, i) => {
-              return (
-                <tr
-                  key={i}
-                  onClick={() => onToggle(x.symbol)}
-                  style={{ cursor: 'pointer' }}
-                  className={`${x.symbol === symbol && 'table-info fw-bold'}`}
-                >
-                  <td className='d-flex justify-content-between'>
-                    <span>{x.symbol}</span>{' '}
-                    <span>{x.priceChangePercent.toFixed(2)}</span>
-                  </td>
-                </tr>
-              );
-            })} */}
           </tbody>
         </table>
       </div>

@@ -84,9 +84,6 @@ const Table = ({ data, decimal, average, time, trades, symbol }) => {
           </tbody>
         </table>
       </div>
-      <p className='text-end'>
-        Length : <strong>{data.length}</strong>
-      </p>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 const axios = require('axios');
 
-const TopMarket = () => {
+const TopMarket = ({ onToggle, symbol }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -58,7 +58,12 @@ const TopMarket = () => {
           <tbody>
             {data.map((x, i) => {
               return (
-                <tr key={i}>
+                <tr
+                  key={i}
+                  onClick={() => onToggle(x.symbol)}
+                  style={{ cursor: 'pointer' }}
+                  className={`${x.symbol === symbol && 'table-info fw-bold'}`}
+                >
                   <td className='d-flex justify-content-between'>
                     <span>{x.symbol}</span>
                     <span>{x.trades}</span>

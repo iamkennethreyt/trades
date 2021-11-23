@@ -163,7 +163,7 @@ const App = () => {
                       onSearch={onSearch}
                     />
                     <Timer onSearch={onSearch} symbol={symbol} />
-                    <TopMarket />
+                    <TopMarket onToggle={onSelectSymbol} symbol={symbol} />
                   </div>
                 )}
               </div>

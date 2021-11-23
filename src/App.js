@@ -11,6 +11,7 @@ import Timer from './Components/Timer';
 import Price from './Components/Price';
 import Options from './Components/Options';
 import TopTrades from './Components/TopTrades';
+import TopMarket from './Components/TopMarket';
 
 const API = 'https://api3.binance.com/api/v3/klines?';
 
@@ -153,14 +154,18 @@ const App = () => {
                   highToLow={highToLow}
                   setHighToLow={onToogle}
                 />
+
                 {scalping && (
-                  <Price
-                    symbol={symbol}
-                    latestClose={latestClose}
-                    onSearch={onSearch}
-                  />
+                  <div>
+                    <Price
+                      symbol={symbol}
+                      latestClose={latestClose}
+                      onSearch={onSearch}
+                    />
+                    <Timer onSearch={onSearch} symbol={symbol} />
+                    <TopMarket />
+                  </div>
                 )}
-                {scalping && <Timer onSearch={onSearch} symbol={symbol} />}
               </div>
             </div>
           </div>

@@ -11,8 +11,9 @@ const Timer = ({ onSearch }) => {
   }, []);
 
   return (
-    <label className='py-1'>
-      Refresh in ({<Clock format={'ss'} ticking={true} />}) seconds
+    <label className=''>
+      Refresh in (<strong>{<Clock format={'ss'} ticking={true} />}</strong>)
+      seconds
     </label>
   );
 };

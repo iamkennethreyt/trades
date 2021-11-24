@@ -27,6 +27,14 @@ const symbols = [
   {
     value: 'DOGEBUSD',
     label: 'DOGE/BUSD'
+  },
+  {
+    value: 'MANABUSD',
+    label: 'MANA/BUSD'
+  },
+  {
+    value: 'SANDBUSD',
+    label: 'SAND/BUSD'
   }
 ];
 

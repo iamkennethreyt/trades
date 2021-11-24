@@ -12,7 +12,9 @@ const Options = ({
   highToLow,
   setHighToLow,
   favourites,
-  setFavourites
+  setFavourites,
+  busdOnly,
+  setBusdOnly
 }) => {
   return (
     <div className='border rounded px-2'>
@@ -98,6 +100,20 @@ const Options = ({
         />
         <label className='form-check-label' htmlFor='favourites'>
           Favourites
+        </label>
+      </div>
+
+      <div className='form-check form-check-inline form-switch'>
+        <input
+          className='form-check-input'
+          type='checkbox'
+          value=''
+          id='busdOnly'
+          onChange={() => setBusdOnly(!busdOnly)}
+          checked={busdOnly}
+        />
+        <label className='form-check-label' htmlFor='busdOnly'>
+          Show BUSD Only
         </label>
       </div>
     </div>

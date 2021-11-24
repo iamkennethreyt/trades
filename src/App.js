@@ -19,9 +19,9 @@ const App = () => {
   const [data, setData] = useState([]);
   const [market, setMarket] = useState([]);
 
-  const [symbol, setSymbol] = useState('SHIBBUSD');
+  const [symbol, setSymbol] = useState('BNBBUSD');
   const [limit, setLimit] = useState(22);
-  const [interval, setInterval] = useState('1m');
+  const [interval, setInterval] = useState('1d');
   const [decimal, setDecimal] = useState(8);
   const [latestClose, setLatestClose] = useState(0);
 
@@ -29,9 +29,10 @@ const App = () => {
   const [average, setAverage] = useState(true);
   const [time, setTime] = useState(false);
   const [trades, setTrades] = useState(true);
-  const [scalping, setScalping] = useState(true);
+  const [scalping, setScalping] = useState(false);
   const [favourites, setFavourites] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [busdOnly, setBusdOnly] = useState(false);
 
   useEffect(() => {
     onSearch();
@@ -68,7 +69,9 @@ const App = () => {
       };
     });
 
-    const outputSorted = await output.filter((x) => x.symbol.includes('BUSD'));
+    const outputSorted = busdOnly
+      ? await output.filter((x) => x.symbol.includes('BUSD'))
+      : output;
 
     setMarket(outputSorted);
     return;
@@ -101,7 +104,7 @@ const App = () => {
   return (
     <Router>
       <Header />
-      {showAlert && (
+      {/* {showAlert && (
         <div className='container mt-3'>
           <div
             className='alert alert-danger alert-dismissible fade show'
@@ -116,7 +119,7 @@ const App = () => {
             ></button>
           </div>
         </div>
-      )}
+      )} */}
 
       <Route
         path='/'
@@ -145,6 +148,7 @@ const App = () => {
                   onToggle={onSelectSymbol}
                   setSymbol={setSymbol}
                   symbol={symbol}
+                  busdOnly={busdOnly}
                 />
               </div>
               <div className='col-md-8'>
@@ -171,6 +175,8 @@ const App = () => {
                   setFavourites={setFavourites}
                   highToLow={highToLow}
                   setHighToLow={onToogle}
+                  busdOnly={busdOnly}
+                  setBusdOnly={setBusdOnly}
                 />
 
                 {scalping && (
@@ -181,13 +187,16 @@ const App = () => {
                       onSearch={onSearch}
                     />
                     <Timer onSearch={onSearch} symbol={symbol} />
-                    <TopMarket
-                      onToggle={onSelectSymbol}
-                      symbol={symbol}
-                      setShowAlert={setShowAlert}
-                    />
                   </div>
                 )}
+                <TopMarket
+                  onToggle={onSelectSymbol}
+                  symbol={symbol}
+                  interval={interval}
+                  setShowAlert={setShowAlert}
+                  scalping={scalping}
+                  busdOnly={busdOnly}
+                />
               </div>
             </div>
           </div>

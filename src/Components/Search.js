@@ -50,7 +50,7 @@ const Search = ({
               className='form-control'
               id='symbols'
               onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-              defaultValue={symbol}
+              value={symbol}
             ></input>
             <label htmlFor='symbols'>Input Symbols</label>
           </div>
@@ -62,7 +62,7 @@ const Search = ({
             className='form-select'
             id='intervals'
             onChange={(e) => setInterval(e.target.value)}
-            defaultValue={interval}
+            value={interval}
           >
             {intervals.map((n, i) => (
               <option key={i} value={n.value}>
@@ -79,7 +79,7 @@ const Search = ({
             className='form-control'
             id='limit'
             onChange={(e) => setLimit(e.target.value)}
-            defaultValue={limit}
+            value={limit}
           />
           <label htmlFor='limit'>Limit</label>
         </div>

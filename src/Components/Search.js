@@ -9,23 +9,15 @@ const Search = ({
   favourites,
   setSymbol,
   setLimit,
-  decimal,
-  setInterval,
-  setDecimal,
-  onSearch
+  setInterval
 }) => {
-  const onSubmit = (e) => {
-    e.preventDefault();
-    onSearch();
-  };
-
   useEffect(() => {
     // onSearch();
   }, [symbol, limit, interval]);
 
   return (
     <div className=''>
-      <form className='row g-2 my-3' onSubmit={onSubmit}>
+      <form className='row g-2 my-3'>
         {favourites ? (
           <div className='col-md-2 col-auto form-floating'>
             <select
@@ -82,23 +74,6 @@ const Search = ({
             value={limit}
           />
           <label htmlFor='limit'>Limit</label>
-        </div>
-        {/* <div className='col-md-2 col-auto form-floating'>
-          <input
-            type='number'
-            className='form-control'
-            id='decimal'
-            onChange={(e) => setDecimal(e.target.value)}
-            defaultValue={decimal}
-          />
-          <label htmlFor='decimal'>Decimal</label>
-        </div> */}
-        <div className='col-md-2 col-auto'>
-          <input
-            type='submit'
-            className='btn btn-primary py-3 px-4'
-            value='Search'
-          />
         </div>
       </form>
     </div>

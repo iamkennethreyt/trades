@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import intervals from '../data/interval';
 const axios = require('axios');
 
 const TopMarket = ({ onToggle, symbol, interval }) => {
@@ -53,7 +54,9 @@ const TopMarket = ({ onToggle, symbol, interval }) => {
         <table className='table table-bordered table-sm table-hover'>
           <thead>
             <tr className='text-center'>
-              <th scope='col'>Top Trades ({interval})</th>
+              <th scope='col'>
+                Top Trades ({intervals.find((x) => x.value === interval).label})
+              </th>
             </tr>
           </thead>
           <tbody>

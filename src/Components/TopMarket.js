@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 const axios = require('axios');
 
-const TopMarket = ({ onToggle, symbol, setShowAlert, interval }) => {
+const TopMarket = ({ onToggle, symbol, interval }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -58,9 +58,6 @@ const TopMarket = ({ onToggle, symbol, setShowAlert, interval }) => {
           </thead>
           <tbody>
             {data.map((x, i) => {
-              if (x.trades > 1000) {
-                setShowAlert(true);
-              }
               return (
                 <tr
                   key={i}

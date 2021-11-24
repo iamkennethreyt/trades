@@ -22,8 +22,8 @@ const Header = () => {
     <header>
       <nav className='navbar navbar-light bg-light'>
         <div className='container'>
-          <Link className='navbar-brand' to='/'>
-            Cryp<strong>23</strong>rd
+          <Link className='navbar-brand fw-bold' to='/'>
+            BUSD-TRADES
           </Link>
           <div className='d-flex'>
             <div className='input-group'>

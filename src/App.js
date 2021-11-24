@@ -31,7 +31,6 @@ const App = () => {
   const [trades, setTrades] = useState(true);
   const [scalping, setScalping] = useState(false);
   const [favourites, setFavourites] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     onSearch();
@@ -84,6 +83,7 @@ const App = () => {
     });
 
     const fetchedData = await res.data.reverse();
+    await onFetchTrade();
     await setData(fetchedData);
     await setLatestClose(fetchedData[0][3]);
   };
@@ -186,7 +186,6 @@ const App = () => {
                   onToggle={onSelectSymbol}
                   symbol={symbol}
                   interval={interval}
-                  setShowAlert={setShowAlert}
                   scalping={scalping}
                 />
               </div>

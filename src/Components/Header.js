@@ -36,7 +36,7 @@ const Header = () => {
               />
               <span className='input-group-text'>=</span>
               <span className='input-group-text'>
-                {(curentPrice * value).toLocaleString()}
+                &#8369; {(curentPrice * value).toLocaleString()}
               </span>
             </div>
           </div>

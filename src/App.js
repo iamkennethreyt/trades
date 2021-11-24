@@ -32,7 +32,6 @@ const App = () => {
   const [scalping, setScalping] = useState(false);
   const [favourites, setFavourites] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [busdOnly, setBusdOnly] = useState(false);
 
   useEffect(() => {
     onSearch();
@@ -69,9 +68,7 @@ const App = () => {
       };
     });
 
-    const outputSorted = busdOnly
-      ? await output.filter((x) => x.symbol.includes('BUSD'))
-      : output;
+    const outputSorted = await output.filter((x) => x.symbol.includes('BUSD'));
 
     setMarket(outputSorted);
     return;
@@ -89,7 +86,6 @@ const App = () => {
     const fetchedData = await res.data.reverse();
     await setData(fetchedData);
     await setLatestClose(fetchedData[0][3]);
-    await onFetchTrade();
   };
 
   const onToogle = async () => {
@@ -148,7 +144,6 @@ const App = () => {
                   onToggle={onSelectSymbol}
                   setSymbol={setSymbol}
                   symbol={symbol}
-                  busdOnly={busdOnly}
                 />
               </div>
               <div className='col-md-8'>
@@ -175,8 +170,6 @@ const App = () => {
                   setFavourites={setFavourites}
                   highToLow={highToLow}
                   setHighToLow={onToogle}
-                  busdOnly={busdOnly}
-                  setBusdOnly={setBusdOnly}
                 />
 
                 {scalping && (
@@ -195,7 +188,6 @@ const App = () => {
                   interval={interval}
                   setShowAlert={setShowAlert}
                   scalping={scalping}
-                  busdOnly={busdOnly}
                 />
               </div>
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 const axios = require('axios');
 
-const TopMarket = ({ onToggle, symbol, setShowAlert, interval, busdOnly }) => {
+const TopMarket = ({ onToggle, symbol, setShowAlert, interval }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -14,13 +14,12 @@ const TopMarket = ({ onToggle, symbol, setShowAlert, interval, busdOnly }) => {
     }, 1000);
 
     return () => clearInterval(intervalClock);
-  }, [interval, busdOnly]);
+  }, [interval]);
 
   const fetchData = async () => {
     const res = await axios.get('https://api3.binance.com/api/v3/ticker/24hr');
-    const filtered = busdOnly
-      ? await res.data.filter((x) => x.symbol.includes('BUSD'))
-      : res.data;
+    const filtered = await res.data.filter((x) => x.symbol.includes('BUSD'));
+
     const symbols = await filtered.map((x) => x.symbol);
 
     const mapped = await Promise.all(
